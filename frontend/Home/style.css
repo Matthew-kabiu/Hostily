@@ -1,0 +1,181 @@
+/* Import CSS Link */
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Catamaran:wght@100..900&family=Fascinate+Inline&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Neucha&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* Default CSS Styles  */
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --light-grey: #555555;
+  --dark-grey: #1e1e1e;
+  --font-family-bai: "Bai Jamjuree", serif;
+
+  /* Font Sizes */
+  --font-size-normal: 17px;
+  --font-size-small: 15px;
+  --font-size-semi-medium: 20px;
+  --font-size-medium: 25px;
+  --font-size-large: 30px;
+  --font-size-xl: 35px;
+  --font-size-xxl: 40px;
+  --font-size-xxxl: 45px;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-semi-medium: 500;
+  --font-weight-medium: 600;
+  --font-weight-bold: 700;
+}
+
+/*Start Of Components Section */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+/* Header Section */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+#myVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.video-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+header {
+  padding: 20px 60px 0 60px;
+  width: 100%;
+  color: var(--white);
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family-bai);
+  cursor: pointer;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+}
+
+.logo {
+  padding: 20px;
+  display: inline-flex;
+  border: 1px solid var(--white);
+}
+
+.logo-title {
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+}
+
+.nav-items {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: var(--white);
+  font-size: var(--font-size-normal);
+  transition: transform 0.3s ease-in-out, font-weight 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+  opacity: 0.8;
+}
+
+.nav-link:hover {
+  font-weight: var(--font-weight-bold);
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.background-overlay {
+  padding: 150px 0 0 0;
+}
+
+.header-title {
+  width: 50%;
+  text-align: center;
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-xl);
+}
+
+.header-cards-row {
+  display: flex;
+  width: 100%;
+  margin-top: 200px;
+}
+
+.header-card {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 20px 15px;
+  background: var(--light-grey);
+  width: 25%;
+  cursor: pointer;
+}
+
+.check-now {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--dark-grey);
+}
+
+.header-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header-card-p {
+  font-family: var(--font-family-bai);
+}
+
+.calendar-button{
+    background: none;
+    outline: none;
+    border: none;
+}
+
+/*End Of Components Section */
