@@ -31,15 +31,14 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 a {
   text-decoration: none;
 }
 
-button {
-    cursor: pointer;
+button, select,option {
+  cursor: pointer;
 }
 
 ul,
@@ -47,12 +46,25 @@ li {
   list-style: none;
 }
 
+select {
+  padding:5px 10px;
+  width: 180px;
+  outline: none;
+  border:none ;
+  font-family: var(--font-family-bai);
+  font-weight: var(--font-weight-medium);
+}
+
+section {
+  padding: 100px 60px;
+}
+
 /* Header Section */
 .video-background {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 80%;
   width: 100%;
   overflow: hidden;
   z-index: -1;
@@ -79,6 +91,10 @@ li {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 0;
+}
+
+#header-container{
+  padding: 0;
 }
 
 header {
@@ -142,14 +158,14 @@ nav {
 .header-cards-row {
   display: flex;
   width: 100%;
-  margin-top: 200px;
+ 
 }
 
 .header-card {
   display: flex;
   align-items: end;
   justify-content: space-between;
-  padding: 20px 15px;
+  padding: 20px 30px;
   background: var(--light-grey);
   width: 25%;
   cursor: pointer;
@@ -160,6 +176,9 @@ nav {
   justify-content: center;
   align-items: center;
   background: var(--dark-grey);
+  border: none;
+  color: var(--white);
+  font-weight: var(--font-weight-medium);
 }
 
 .header-card-text {
@@ -170,12 +189,22 @@ nav {
 
 .header-card-p {
   font-family: var(--font-family-bai);
+
 }
 
-.calendar-button{
-    background: none;
-    outline: none;
-    border: none;
+.calendar-button {
+  background: none;
+  outline: none;
+  border: none;
 }
+
+#checkInDate,
+#checkOutDate {
+  padding: 5px;
+  font-family: var(--font-family-bai);
+  outline: none;
+  font-weight: var(--font-weight-medium);
+}
+
 
 /*End Of Components Section */
