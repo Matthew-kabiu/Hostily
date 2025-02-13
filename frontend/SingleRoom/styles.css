@@ -358,7 +358,7 @@ nav {
   font-family: var(--font-family-bai);
   font-weight: var(--font-weight-semi-mediummedium);
   font-size: var(--font-size-large);
-  padding-bottom: 15px;
+
 }
 
 .price-cards-beds,
@@ -464,10 +464,17 @@ nav {
   padding: 0px 0px 0px 40px;
 }
 
-#room-single-title{
+#room-single-title, #top-section-title{
   font-family: var(--font-family-bai);
+  font-weight: bold;
   font-size: var(--font-size-large);
-  font-weight: var(--font-weight-semi-medium);
+}
+
+
+#room-single-description{
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-semi-medium);
+  font-weight: var(--font-weight-medium);
   text-transform: capitalize;
 }
 
@@ -477,7 +484,7 @@ nav {
   gap:40px;
 }
 
-#room-single-description, #special-instructions{
+#room-single-paragraph, #special-instructions{
   font-family: var(--font-family-lato);
 }
 
@@ -518,3 +525,54 @@ nav {
 }
 
 /* Accordions */
+#accordion{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion-item{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-header{
+  padding:25px 35px;
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-semi-medium);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  background: var(--grey);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.accordion-header:hover{
+  background: var(--black);
+  color: white;
+}
+
+.accordion-header i {
+  transition: transform 0.3s ease;
+}
+
+.accordion-header.active i {
+  transform: rotate(180deg);
+}
+
+
+.accordion-content{
+  width:100%;
+  padding:25px 35px;
+}
+
+.accordion-p{
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-semi-medium);
+}

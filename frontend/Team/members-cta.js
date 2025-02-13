@@ -1,11 +1,11 @@
 (() => {
-    document.addEventListener("DOMContentLoaded", () => {
-      const membersCtaSection = document.getElementById("members-cta");
-      if (!membersCtaSection) return;
-  
-      // Function to load the Members CTA content into the placeholder
-      const loadMembersCta = () => {
-        membersCtaSection.innerHTML = `
+  document.addEventListener("DOMContentLoaded", () => {
+    const membersCtaSection = document.getElementById("members-cta");
+    if (!membersCtaSection) return;
+
+    // Function to load the Members CTA content into the placeholder
+    const loadMembersCta = () => {
+      membersCtaSection.innerHTML = `
           <div class="members-cta-column">
             <p class="members-cta-tagline">
               Message From The CEO
@@ -20,26 +20,29 @@
           <div class="column-img">
             <div class="ceo-image"></div>
             <p class="ceo-title">
-              JOHN WAINAINA , A MEMBER OF THE ROTARY CLUB OF JUJA IS THE SELCTION OF THE NOMINATING COMMITTEE FOR PRESIDENT OF ROTARY CLUB JUJA FOR 2023-24
+          Dr. Catherine Williams, DBA, CMC
+Award-Winning Executive | Hospitality Strategist | CEO & Industry Thought Leader
             </p>
           </div>
         `;
-      };
-  
-      // Set up an Intersection Observer to lazy-load the content when the placeholder is visible
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
+    };
+
+    // Set up an Intersection Observer to lazy-load the content when the placeholder is visible
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             loadMembersCta();
             observer.unobserve(entry.target); // Stop observing once content is loaded
           }
         });
-      }, {
+      },
+      {
         root: null,
-        threshold: 0.1 // Trigger when at least 10% of the section is visible
-      });
-  
-      observer.observe(membersCtaSection);
-    });
-  })();
-  
+        threshold: 0.1, // Trigger when at least 10% of the section is visible
+      }
+    );
+
+    observer.observe(membersCtaSection);
+  });
+})();

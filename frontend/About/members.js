@@ -1,14 +1,27 @@
 (() => {
-  document.addEventListener("DOMContentLoaded", () => {
-    // Team member data
-    const teamMembers = [
-      { name: "Mitchelle Yeah", title: "CEO" },
-      { name: "David Fincher", title: "General Manager" },
-      { name: "Emily Stone", title: "Operations Manager" },
-      { name: "John Doe", title: "Marketing Head" },
-      { name: "Sarah Connor", title: "HR Manager" },
-      { name: "James Cameron", title: "Finance Manager" },
-    ];
+  document.addEventListener("DOMContentLoaded", async () => {
+    let teamMembers = [];
+
+    // Fetch team members from the "team" collection in the database
+    async function fetchTeamMembers() {
+      try {
+        if (!window.Api || typeof window.Api.pullData !== "function") {
+          throw new Error("API helper (window.Api) is not available.");
+        }
+        const jsonData = await window.Api.pullData("/api/team"); // Fetch from DB
+        if (jsonData.success) {
+          teamMembers = jsonData.data; // Store retrieved data
+        } else {
+          console.error("Failed to fetch team members:", jsonData.message);
+          teamMembers = [];
+        }
+      } catch (error) {
+        console.error("Error fetching team members:", error);
+        teamMembers = [];
+      }
+    }
+
+    await fetchTeamMembers(); // Ensure data is fetched before processing
 
     const maxCardsPerRow = 3;
     const totalSlides = Math.ceil(teamMembers.length / maxCardsPerRow);
