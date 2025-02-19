@@ -25,8 +25,8 @@ export async function loadCategoryCard() {
 
       // Update the DOM with generated content
       categoryCardElement.innerHTML = `
-        <p class="price-card-title">Category</p>
-        <hr class="price-card-hr" />
+        <h1 class="filter-card-title">Category</h1>
+        <hr class="filter-card-hr" />
         ${categoryHTML}
       `;
 

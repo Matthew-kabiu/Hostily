@@ -18,6 +18,8 @@
   // Importing routes.
   const roomRoutes = require('./routes/roomRoutes');
   const teamRoutes = require('./routes/teamRoutes');
+
+  // Assigning Api Routes
   app.use('/api/rooms', roomRoutes);
   app.use('/api/team', teamRoutes);
 

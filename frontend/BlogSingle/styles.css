@@ -19,6 +19,7 @@
   --font-size-small: 15px;
   --font-size-semi-medium: 20px;
   --font-size-medium: 25px;
+  --font-size-custom: 28px;
   --font-size-large: 30px;
   --font-size-xl: 35px;
   --font-size-xxl: 40px;
@@ -43,8 +44,13 @@ a {
   text-decoration: none;
 }
 
-p,h1,h2,h3,h4,h5,h6
-a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 a,
 li,
 ul {
   line-height: 200%;
@@ -327,290 +333,364 @@ nav {
 }
 /* End of Components Section */
 
-#body-description {
-  display: flex;
-}
+#blog-single{
+    display: flex;
+    justify-content: space-between;
+  }
 
-            /* Left Panel */
-#left-panel {
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-/* Price Card */
-.left-panel-card {
+/* Blog Container */
+.blog-content {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--black);
-  padding: 40px 30px;
+  gap: 50px;
+  width: 58%;
 }
 
-.price-card-hr {
-  width: 30%;
-  height: 2px;
-  background-color: var(--black);
-  margin-bottom: 30px;
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--grey);
 }
 
-.price-card-title {
+.blog-card-img {
+  width: 100%;
+  background: var(--grey);
+  height: 50vh;
+}
+
+.blog-card-icons {
+  padding: 30px 43px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   font-family: var(--font-family-bai);
-  font-weight: var(--font-weight-semi-mediummedium);
-  font-size: var(--font-size-large);
-
 }
 
-.price-cards-beds,
-.price-cards-guests {
+.blog-card-icon {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 25px;
 }
 
-.left-card-description {
-  font-family: var(--font-family-lato);
-}
-
-.price-card-price {
-  font-family: var(--font-family-bai);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-medium);
-  margin-bottom: 40px;
-}
-
-.price-card-span {
-  font-family: var(--font-family-lato);
-  color: var(--light-greygrey);
+.blog-icon-p {
   font-size: var(--font-size-small);
 }
 
-.price-card-btn {
+.blog-card-content {
+  padding: 30px 43px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog-card-title {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-large);
+  line-height: 45px;
+  font-weight: var(--font-weight-semi-medium);
+}
+
+.blog-card-hr {
+  border: 0.5px solid var(--light-grey);
+  width: 90%;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.blog-card-p {
+  font-family: var(--font-family-lato);
+  line-height: 28px;
+  font-size: var(--font-size-small);
+}
+
+.blog-card-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  padding: 10px 20px;
-  height: 70px;
-  background: var(--black);
-  color: var(--white);
-  font-weight: var(--font-weight-medium);
-  border: none;
-  outline: none;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  gap: 30px;
+  padding: 15px 50px;
+  font-family: var(--font-family-bai);
   text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  background: none;
+  border: 1px solid var(--black);
+  color: var(--black);
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 10px;
+  width: 50%;
 }
 
-.price-card-btn:hover {
+.blog-card-btn:hover {
+  background: var(--black);
+  color: var(--white);
   transform: scale(1.1);
-  background: var(--white);
+}
+
+.blog-card-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.blog-card-imgs {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+#blog-card-img {
+  width: 47%;
+  height: 30vh;
+  background: var(--grey);
+}
+
+/* Comment Section */
+.comments-header {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-semi-medium);
+}
+
+/* Single Comment */
+
+.single-comment {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid var(--grey);
+  padding: 30px 0px;
+}
+
+
+#comment-user-img {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;     
+    width: 120px;
+    height: 120px;
+    background-color: var(--grey);
+    object-fit: cover;    /
+}
+
+.single-comment-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.single-comment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-name {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-semi-medium);
+  line-height: 28px;
+}
+
+.comment-date {
+  font-family: var(--font-family-lato);
+  color: var(--light-grey);
+  line-height: 28px;
+  font-size: var(--font-size-small);
+}
+
+.comment-text-p {
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-xsmall);
+}
+
+/* Comment Form */
+#add-comment{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#commentForm {
+padding: 0px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 40px;
+}
+
+.form-row{
+    display: flex;
+    gap: 15px;
+}
+
+#formInput, #form-text-area{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--light-grey);
+}
+
+.form-input, #formTextArea{
+    width: 95%;
+    font-family: lato;
+    color: var(--black);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#form-text-area{
+   align-items: start;
+}
+
+#formTextArea{
+    height: 30vh;
+    resize: none;
+}
+
+#formBtn{
+    padding:20px 40px;
+    width: 50%;
+    font-family: var(--font-family-bai);
+    text-transform: uppercase;
+    font-weight: var(--font-weight-medium);
+    background: var(--black);
+    color: var(--white);
+    outline: none;
+    border: 1px solid var(--black);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#formBtn:hover{
+    transform: scale(1.1);
+    background: var(--white);
+    color: var(--black);
+}
+
+/* Blog Filters Section */
+.blog-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 39%;
+}
+
+.filter-card {
+  width: 100%;
+  border: 1px solid var(--light-grey);
+  padding: 25px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-card-title {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-semi-medium);
+  margin-bottom: 10px;
+}
+
+.filter-card-hr{
+  border: 0.5px solid var(--light-grey);
+  width: 20%;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+}
+
+/* Search Card */
+
+.search-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#searchInput {
+  width: 90%;
+  padding: 10px 0px;
+  border: none;
+  outline: none;
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-small);
+  background: transparent;
   color: var(--black);
-  border: 1px solid var(--black);
 }
 
 /* Category Card */
-
 .single-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 10px; 
+  padding-bottom: 10px;
   margin-bottom: 30px;
   border-bottom: 1px solid var(--black);
   cursor: pointer;
 }
 
 /* .single-item:hover{
-  background: black;
-  color: var(--white);
-} */
+    background: black;
+    color: var(--white);
+  } */
 
-.single-item-p{
+.single-item-p {
   display: flex;
   align-items: center;
   gap: 7px;
+  font-family: var(--font-family-lato);
 }
 
-/* Booking Now Card */
-#booking-card{
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.booking-input-placeholder{
+/* Recent Post */
+.single-post {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid var(--black);
-  padding: 10px;
-  cursor: pointer;
-}
-
-.booking-input{
-  font-family: var(--font-family-lato);
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.calendar-popup {
-  background: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  padding: 10px;
-  z-index: 1000;
-  font-size: var(--font-size-xsmall);
-  /* You can add additional styles as needed */
-}
-
-.flatpickr-calendar {
-  background-color: white;
-  border: 1px solid var(--black);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  font-family: var(--font-family-lato);
-}
-
-.flatpickr-current-month {
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-bold);
-  text-transform: capitalize;
-}
-
-/* Individual day styling */
-.flatpickr-day {
-  font-size: var(--font-size-xsmall);
-  color: var(--black);
-  font-weight: var(--font-weight-bold);
-  transition: all 0.3s ease;
-}
-
-/* Today’s date */
-.flatpickr-day.today {
-  background-color: var(--primary-color);
-  font-weight: bold;
-}
-
-        /* Right Panel */
-
-#right-panel{
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding: 0px 0px 0px 40px;
-}
-
-#room-single-title, #top-section-title{
-  font-family: var(--font-family-bai);
-  font-weight: bold;
-  font-size: var(--font-size-large);
-}
-
-
-#room-single-description{
-  font-family: var(--font-family-bai);
-  font-size: var(--font-size-semi-medium);
-  font-weight: var(--font-weight-medium);
-  text-transform: capitalize;
-}
-
-#top-section, #special-instructions,#amenities{
-  display: flex;
-  flex-direction: column;
-  gap:40px;
-}
-
-#room-single-paragraph, #special-instructions{
-  font-family: var(--font-family-lato);
-}
-
-.top-img-row{
-  display: flex;
-  gap: 30px;
-}
-
-.top-img{
-  width: 50%;
-  height: 50vh;
-  background: var(--light-grey);
-}
-
-#amenities, #amenities-row{
-  width: 95%;
-}
-
-#amenities-row{
-  display: flex;
-  justify-content: space-between;
-}
-
-.amenities-column{
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
-
-.amenities-item{
-  display: flex;
-  align-items: center;
-  gap:15px;
-}
-
-.amenities-item-p{
-  font-family: var(--font-family-bai);
-}
-
-/* Accordions */
-#accordion{
+  gap: 20px;
   width: 100%;
+  padding-bottom: 25px;
+  border-bottom: 1px solid var(--grey);
+  margin-bottom: 25px;
+
+}
+
+.single-post-content{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 75%;
 }
 
-.accordion-item{
-  width: 100%;
+.single-post-calendar{
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.accordion-header{
-  padding:25px 35px;
-  font-family: var(--font-family-bai);
-  font-size: var(--font-size-semi-medium);
-  font-weight: var(--font-weight-medium);
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
+.single-post-img{
+  width: 25%;
+  height: 15vh;
   background: var(--grey);
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.accordion-header:hover{
-  background: var(--black);
-  color: white;
+.single-post-day{
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-xsmall);
 }
 
-.accordion-header i {
-  transition: transform 0.3s ease;
-}
-
-.accordion-header.active i {
-  transform: rotate(180deg);
-}
-
-
-.accordion-content{
-  width:100%;
-  padding:25px 35px;
-}
-
-.accordion-p{
+.single-post-title{
   font-family: var(--font-family-bai);
-  font-size: var(--font-size-semi-medium);
+  font-size: var(--font-size-small);
+  width: 60%;
+  line-height: 25px;
+  text-transform: capitalize;
 }

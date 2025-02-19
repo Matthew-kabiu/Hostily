@@ -1,14 +1,14 @@
+// ✅ Import pullData correctly from api.js
+import { pullData } from "../../JS/api.js"; 
+
 (() => {
   document.addEventListener("DOMContentLoaded", async () => {
     let teamMembers = [];
 
-    // Fetch team members from the "team" collection in the database
+    // ✅ Fetch team members from the "team" collection in the database
     async function fetchTeamMembers() {
       try {
-        if (!window.Api || typeof window.Api.pullData !== "function") {
-          throw new Error("API helper (window.Api) is not available.");
-        }
-        const jsonData = await window.Api.pullData("/api/team"); // Fetch from DB
+        const jsonData = await pullData("/api/team"); // ✅ Correct function call
         if (jsonData.success) {
           teamMembers = jsonData.data; // Store retrieved data
         } else {
@@ -21,12 +21,12 @@
       }
     }
 
-    await fetchTeamMembers(); // Ensure data is fetched before processing
+    await fetchTeamMembers(); // ✅ Ensure data is fetched before processing
 
     const maxCardsPerRow = 3;
     const totalSlides = Math.ceil(teamMembers.length / maxCardsPerRow);
 
-    // Group team members into slides (rows), each with up to 3 cards.
+    // ✅ Group team members into slides (rows), each with up to 3 cards.
     const slidesHTML = [];
     for (let i = 0; i < teamMembers.length; i += maxCardsPerRow) {
       const slideMembers = teamMembers.slice(i, i + maxCardsPerRow);
@@ -53,7 +53,7 @@
       `);
     }
 
-    // Create the workforce section HTML with the carousel container
+    // ✅ Create the workforce section HTML with the carousel container
     const createWorkforceHTML = () => `
       <section id="members">
         <h6 class="section-tagline">Our Expert Members</h6>
@@ -70,28 +70,27 @@
       </section>
     `;
 
-    // Function to load the workforce section and start the carousel
+    // ✅ Function to load the workforce section and start the carousel
     const loadWorkforce = () => {
       const container = document.getElementById("members-container");
       container.insertAdjacentHTML("beforeend", createWorkforceHTML());
 
-      // Select the carousel row element
+      // ✅ Select the carousel row element
       const carouselRow = document.getElementById("carouselRow");
       let currentIndex = 0;
       const transitionDuration = 6000; // 6 seconds
 
-      // Function to handle the carousel slide transition
+      // ✅ Function to handle the carousel slide transition
       function slideCarousel() {
         currentIndex = (currentIndex + 1) % totalSlides;
-        // Each slide occupies 100/totalSlides % of the carouselRow
         carouselRow.style.transform = `translateX(-${currentIndex * (100 / totalSlides)}%)`;
       }
 
-      // Start the automatic carousel transition
+      // ✅ Start the automatic carousel transition
       setInterval(slideCarousel, transitionDuration);
     };
 
-    // Lazy load the workforce section using Intersection Observer
+    // ✅ Lazy load the workforce section using Intersection Observer
     const membersContainer = document.getElementById("members-container");
     if (membersContainer) {
       const observer = new IntersectionObserver((entries, observer) => {
@@ -103,7 +102,7 @@
         });
       }, {
         root: null,
-        threshold: 0.1 // Trigger when 10% of the container is visible
+        threshold: 0.1 // ✅ Trigger when at least 10% of the container is visible
       });
       observer.observe(membersContainer);
     }

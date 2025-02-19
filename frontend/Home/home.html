@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="style.css" />
 
     <!-- Flatpickr -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    
 
     <!-- Font Awesome Icons -->
     <script
@@ -20,14 +22,39 @@
     ></script>
   </head>
   <body>
-    <!-- Header Section -->
-    <section id="header-container"></section>
-
     <!-- Accomodations Section -->
-    <section id="accomodations">
-      <p class="section-tagline">Accomodations</p>
+    <section id="accomodation">
+      <!-- Content for accomodation section can be dynamically loaded here -->
     </section>
 
-    <script src="./header.js"></script>
+    <!-- Luxury Rooms -->
+    <section id="luxuryRooms">
+      <div class="luxury-rooms-header">
+        <div class="luxury-rooms-header-text">
+          <h6 class="luxury-tagline">Deluxe And Luxury</h6>
+          <h1 class="luxury-header-title">Our Luxury Rooms</h1>
+        </div>
+
+        <div class="luxury-rooms-tabs">
+          <button class="luxury-rooms-menu menu-active">All Rooms</button>
+          <button class="luxury-rooms-menu">Luxury</button>
+          <button class="luxury-rooms-menu">Single</button>
+          <button class="luxury-rooms-menu">Small Suite</button>
+          <button class="luxury-rooms-menu">Family</button>
+        </div>
+      </div>
+
+      <div class="luxury-rooms-container"></div>
+      
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="footer"></footer>
+
+    <!-- JS Files -->
+    <script type="module" src="/JS/footer.js"></script>
+    <script type="module" src="accomodation.js"></script>
+    <script type="module" src="luxury-card.js"></script>
   </body>
 </html>

@@ -3,19 +3,27 @@ export function loadPriceCard() {
   const priceCard = document.getElementById("price-card");
   if (!priceCard) return;
 
+    // Retrieve selected room data from localStorage
+    const selectedRoom = JSON.parse(localStorage.getItem("selectedRoom"));
+
+    if (!selectedRoom) {
+      console.error("No room data found in localStorage.");
+      return;
+    }
+
   priceCard.innerHTML = `
     <p class="price-card-title">Your Price</p>
     <hr class="price-card-hr" />
     <div class="price-cards-beds">
       <i class="fa-solid fa-bed"></i>
-      <p class="left-card-description">(3) Beds</p>
+      <p class="left-card-description">(${selectedRoom.beds}) beds</p>
     </div>
     <div class="price-cards-guests">
       <i class="fa-solid fa-user-group"></i>
-      <p class="left-card-description">(6) Guests</p>
+      <p class="left-card-description">(${selectedRoom.guests}) guests</p>
     </div>
     <p class="price-card-price">
-      $219 <span class="price-card-span">/Night</span>
+      $${selectedRoom.price}  <span class="price-card-span">/Night</span>
     </p>
     <button class="price-card-btn">
       BOOK NOW<i class="fa-solid fa-arrow-right"></i>

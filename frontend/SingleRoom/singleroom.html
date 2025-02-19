@@ -5,22 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HOSTILY</title>
 
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="styles.css" />
-
     <!-- Font Awesome Icons -->
     <script
       src="https://kit.fontawesome.com/d157236d23.js"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Flatpickr CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
   </head>
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="styles.css" />
+  
   <body>
     <!-- Header Section -->
     <header id="header"></header>
 
     <!-- Room Detail Section -->
     <section id="body-description">
-      <!--Left Panel  -->
+      <!-- Left Panel  -->
       <div id="left-panel"></div>
 
       <!-- Right Panel -->
@@ -31,15 +38,16 @@
         <div id="special-instructions"></div>
         <!-- Amenities -->
         <div id="amenities"></div>
-
-      <!-- Accordion -->
-      <div id="accordion">  </div>
+        <!-- Accordion -->
+        <div id="accordion"></div>
       </div>
-
     </section>
 
     <!-- Footer Section -->
     <footer id="footer"></footer>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- JS Files -->
     <script type="module" src="/JS/header.js"></script>
@@ -49,7 +57,6 @@
     <script type="module" src="booking-card.js"></script>
     <script type="module" src="left-panel.js"></script>
     <!-- Start of Right Panel -->
-
     <script type="module" src="top-section.js"></script>
     <script type="module" src="special-instructions.js"></script>
     <script type="module" src="amenities.js"></script>

@@ -20,10 +20,10 @@
                           <h6 class="logo-title">Logo</h6>
                       </div>
                       <ul class="nav-items">
-                          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                          <li class="nav-item"><a href="../Home/home.html" class="nav-link">Home</a></li>
                           <li class="nav-item"><a href="../About/about.html" class="nav-link">About</a></li>
                           <li class="nav-item"><a href="../Rooms/rooms.html" class="nav-link">Rooms</a></li>
-                          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                          <li class="nav-item"><a href="../Blog/blog.html" class="nav-link">Blog</a></li>
                           <li class="nav-item"><a href="../Contact/contact.html" class="nav-link">Contact</a></li>
                       </ul>
                       <div class="logo logo-btn">
