@@ -83,6 +83,152 @@ section {
   padding: 75px 50px;
 }
 
+/* Header Section */
+#homeHeader {
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  padding: 0px 50px;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family-bai);
+  cursor: pointer;
+  padding: 25px 0;
+  border-bottom: 1px solid white;
+}
+
+.logo {
+  padding: 20px;
+  display: inline-flex;
+  border: 1px solid var(--white);
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: var(--white);
+}
+
+.logo-title {
+  font-family: var(--font-family-bai);
+  font-weight: var(--font-weight-semi-medium);
+  font-size: var(--font-size-normal);
+  text-transform: uppercase;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  background: var(--white);
+  color: var(--black);
+  font-weight: var(--font-weight-bold);
+}
+
+.nav-items {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: var(--white);
+  font-size: var(--font-size-normal);
+  transition: transform 0.3s ease-in-out, font-weight 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+  opacity: 0.8;
+}
+
+.nav-link:hover {
+  font-weight: var(--font-weight-bold);
+  transform: scale(1.2);
+  opacity: 1;
+}
+/* End of Nav */
+.home-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header-title {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-semi-medium);
+  color: var(--white);
+  line-height: 60px;
+  margin: 150px 40px;
+}
+
+/* Check Now Section */
+.check-now {
+  display: flex;
+}
+
+.check-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+  padding: 15px 30px;
+  width: 25%;
+  background: var(--light-grey);
+}
+
+.check-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.check-card-p {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-small);
+  color: var(--white);
+  font-weight: var(--font-weight-medium);
+}
+
+.check-card-input {
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-small);
+  background: transparent;
+  color: var(--white);
+  border: none;
+  outline: none;
+}
+
+.check-card-input::placeholder {
+  color: var(--white);
+}
+
+.flatpickr-calendar {
+  font-family: var(--font-family-bai);
+}
+
+.room-options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  padding: none;
+}
+
+.room-options option {
+  background: var(--black);
+  color: var(--white);
+}
+
+#checkNowBtn {
+  background: var(--dark-grey);
+  border: none;
+  outline: none;
+  font-family: var(--font-family-bai);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
 /* Footer Section */
 #footer {
   background: var(--black);
@@ -301,6 +447,7 @@ section {
   font-family: var(--font-family-bai);
   text-transform: uppercase;
   transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 50px;
 }
 
 .accomodation-btn:hover {
@@ -511,18 +658,19 @@ section {
   gap: 150px;
 }
 
-.services-container, .services-container-reverse {
+.services-container,
+.services-container-reverse {
   display: flex;
   align-items: center;
   position: relative;
   width: 100%;
 }
 
-.service-description{
+.service-description {
   background: var(--grey);
   height: 80vh;
   width: 60%;
-  gap: 10px; 
+  gap: 10px;
   display: flex;
   flex-direction: column;
   padding: 100px 0px 0px 200px;
@@ -537,7 +685,6 @@ section {
   background: var(--black);
   z-index: 1;
 }
-
 
 .service-tagline {
   font-family: var(--font-family-lato);
@@ -592,10 +739,147 @@ section {
   left: 50px;
   background: var(--grey);
   height: 80vh;
-
 }
 
-.service-img-reverse{
-position: absolute;
-right: 50px;
+.service-img-reverse {
+  position: absolute;
+  right: 50px;
+}
+
+/* Testimonial Section */
+.testimonial-container {
+  display: flex;
+  background: var(--grey);
+  gap: 50px;
+  padding: 80px 70px;
+}
+
+.testimonial-icon {
+  width: 100%;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--black);
+}
+
+.testimonial-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-name {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+.testimonial-title {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-small);
+}
+
+.testimonial-p {
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-small);
+  line-height: 30px;
+  margin: 21px 0px 28px 0px;
+}
+
+.testimonial-actions {
+  display: flex;
+}
+
+#testimonial-btn {
+  padding: 4px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+}
+
+#testimonial-btn.active {
+  border: 1px solid var(--black);
+}
+
+.circle {
+  width: 6px;
+  height: 6px;
+  background: var(--black);
+  border-radius: 50%;
+}
+
+/* Blog Section */
+#homeBlog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-blog-tagline {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.home-blog-title {
+  font-family: var(--font-family-bai);
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-semi-medium);
+  text-align: center;
+}
+
+.home-blog-container {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  gap: 25px;
+}
+
+.home-blog-card {
+  width: 30%;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.home-blog-card-img {
+  width: 100%;
+  height: 30vh;
+  background: var(--black);
+}
+
+.home-blog-card-text-container {
+  padding: 20px 30px;
+  background: var(--grey);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: absolute;
+  top: 70%;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.home-card-date {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-date {
+  font-family: var(--font-family-bai);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xxxl);
+  line-height: 40px;
+}
+
+.card-month {
+  font-family: var(--font-family-lato);
+}
+
+.home-card-p {
+  font-family: var(--font-family-bai);
+  line-height: 35px;
+  color: var(--black);
+  line-height: 35px;
+  width: 80%;
 }

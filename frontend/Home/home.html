@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HOSTILY</title>
 
-    <!-- Link Stylesheet -->
-    <link rel="stylesheet" href="style.css" />
 
     <!-- Flatpickr -->
     <link
@@ -14,6 +12,9 @@
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Font Awesome Icons -->
     <script
@@ -23,6 +24,8 @@
   </head>
   <body>
     <!-- Accomodations Section -->
+    <section id="homeHeader"></section>
+
     <section id="accomodation"></section>
 
     <!-- Luxury Rooms -->
@@ -35,14 +38,19 @@
     <section id="amenities"></section>
 
     <!-- Services Section -->
-    <section id="services">
-    </section>
+    <section id="services"></section>
+
+    <!-- Testimonial Section -->
+    <section id="testimonial"></section>
+
+    <!-- Blog Section -->
+    <section id="homeBlog"></section>
 
     <!-- Footer Section -->
     <footer id="footer"></footer>
 
     <!-- JS Files -->
-    <script type="module" src="/JS/footer.js"></script>
+    <script type="module" src="homeHeader.js"></script>
     <script type="module" src="accomodation.js"></script>
     <script type="module" src="luxury-rooms-header.js"></script>
     <script type="module" src="luxury-card.js"></script>
@@ -52,5 +60,8 @@
     <script type="module" src="services-container-reverse.js"></script>
     <script type="module" src="services.js"></script>
     <script type="module" src="amenities.js"></script>
+    <script type="module" src="testimonials.js"></script>
+    <script type="module" src="homeBlog.js"></script>
+    <script type="module" src="/JS/footer.js"></script>
   </body>
 </html>

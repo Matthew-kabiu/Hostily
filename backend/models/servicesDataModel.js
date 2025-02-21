@@ -1,6 +1,6 @@
 export const servicesDataReverse = {
-    tagline: "Read Our Books",
-    title: "The Library",
+    tagline: "Our Food",
+    title: "Restaurant Silo",
     description: "Proin massa augue, lacinia at landit ac, fringilla scelerisque tortor. Mauris sit amet lectus porta.",
     imgSrc: "url('https://example.com/library.jpg')"
   };
@@ -12,15 +12,15 @@ export const servicesDataReverse1 = {
   };
 
   export const servicesData = {
-    tagline: "Our Food",
-    title: "Restaurant Silo",
+    tagline: "Fitness Equipment",
+    title: "Exercise Room",
     description: "Proin massa augue, lacinia at landit ac, fringilla scelerisque tortor. Mauris sit amet lectus porta.",
     imgSrc: "url('https://example.com/library.jpg')"
   };
 
   export const servicesData1 = {
-    tagline: "Our Food",
-    title: "Restaurant Silo",
+    tagline: "Experiences",
+    title: "Swimming Pool",
     description: "Proin massa augue, lacinia at landit ac, fringilla scelerisque tortor. Mauris sit amet lectus porta.",
     imgSrc: "url('https://example.com/restaurant.jpg')"
   };
