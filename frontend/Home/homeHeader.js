@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <a href="../About/about.html" class="nav-link">About</a>
           </li>
           <li class="nav-item">
+            <a href="../Team/members.html" class="nav-link">Team</a>
+          </li>
+          <li class="nav-item">
             <a href="../Rooms/rooms.html" class="nav-link">Rooms</a>
           </li>
           <li class="nav-item">
