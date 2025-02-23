@@ -3,6 +3,7 @@
   const helmet = require('helmet');
   const cors = require('cors');
   const dotenv = require('dotenv');
+  const newsRoutes = require('./routes/newsRoutes'); // <-- Import route
 
   dotenv.config();
   const app = express();
@@ -22,6 +23,7 @@
   // Assigning Api Routes
   app.use('/api/rooms', roomRoutes);
   app.use('/api/team', teamRoutes);
+  app.use('/api', newsRoutes);
 
   // Base route
   app.get('/', (req, res) => {

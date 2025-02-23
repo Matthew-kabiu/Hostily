@@ -1,27 +1,32 @@
-const redis = require("redis"); // Import the Redis library
-const dotenv = require("dotenv"); // Import the dotenv library to load environment variables
+const redis = require("redis");
+const dotenv = require("dotenv");
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config();
 
-// Set Redis connection parameters from environment variables or use default values
+// Set Redis connection parameters
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 const REDIS_HOST = process.env.REDIS_HOST || "127.0.0.1";
 
-// Create a Redis client with the specified host and port
+// Create a Redis client with proper error handling
 const client = redis.createClient({
-  host: REDIS_HOST,
-  port: REDIS_PORT,
+  socket: {
+    host: REDIS_HOST,
+    port: REDIS_PORT,
+  },
 });
 
-// Event listener for successful connection to Redis
-client.on("connect", () => {
-  console.log("✅ Connected to Redis");
-});
+(async () => {
+  try {
+    await client.connect();
+    console.log("✅ Connected to Redis successfully");
+  } catch (error) {
+    console.error("❌ Redis connection error:", error);
+  }
+})();
 
-// Event listener for Redis errors
+// Handle Redis client errors
 client.on("error", (err) => {
   console.error("❌ Redis error:", err);
 });
 
-// Export the Redis client for use in other parts of the application
 module.exports = client;
