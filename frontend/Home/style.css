@@ -407,6 +407,7 @@ nav {
 #accomodation {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .section-tagline {

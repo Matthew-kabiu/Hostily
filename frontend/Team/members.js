@@ -1,13 +1,20 @@
+import { pullData } from "/JS/api.js"; // Import the pullData function
+
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
-    let teamMembers = []; 
+    let teamMembers = [];
     const maxCardsPerRow = 3;
     const cardsPerSlide = maxCardsPerRow * 2; // Two rows per slide
     let totalSlides = 1; // Default until we fetch data
 
+    /**
+     * Fetch team data from the API
+     */
     async function fetchTeamData() {
       try {
-        const jsonData = await window.Api.pullData("/api/team");
+        // Directly call pullData (since it is now imported)
+        const jsonData = await pullData("/api/team");
+
         if (jsonData.success) {
           teamMembers = jsonData.data;
           totalSlides = Math.ceil(teamMembers.length / cardsPerSlide);
@@ -20,6 +27,10 @@
       }
     }
 
+    /**
+     * Build the HTML for the slides
+     * @returns {string} - HTML string for the slides
+     */
     function buildSlidesHTML() {
       const slidesHTML = [];
       for (let i = 0; i < teamMembers.length; i += cardsPerSlide) {
@@ -40,7 +51,9 @@
               align-items: center;
               margin-bottom: 20px;
             ">
-              ${topRowMembers.map(member => `
+              ${topRowMembers
+                .map(
+                  (member) => `
                 <div class="member-card" style="
                   flex: 1;
                   margin: 0 10px;
@@ -51,14 +64,18 @@
                     <p class="member-title">${member.title}</p>
                   </div>
                 </div>
-              `).join('')}
+              `
+                )
+                .join("")}
             </div>
             <div class="row" style="
               display: flex;
               justify-content: space-around;
               align-items: center;
             ">
-              ${bottomRowMembers.map(member => `
+              ${bottomRowMembers
+                .map(
+                  (member) => `
                 <div class="member-card" style="
                   flex: 1;
                   margin: 0 10px;
@@ -69,14 +86,19 @@
                     <p class="member-title">${member.title}</p>
                   </div>
                 </div>
-              `).join('')}
+              `
+                )
+                .join("")}
             </div>
           </div>
         `);
       }
-      return slidesHTML.join('');
+      return slidesHTML.join("");
     }
 
+    /**
+     * Load the workforce section with team members
+     */
     function loadWorkforce() {
       const container = document.getElementById("team-container");
       container.innerHTML = `
@@ -101,7 +123,9 @@
 
       function slideCarousel() {
         currentIndex = (currentIndex + 1) % totalSlides;
-        carouselRow.style.transform = `translateX(-${currentIndex * (100 / totalSlides)}%)`;
+        carouselRow.style.transform = `translateX(-${
+          currentIndex * (100 / totalSlides)
+        }%)`;
       }
 
       setInterval(slideCarousel, transitionDuration);
@@ -110,17 +134,20 @@
     // Lazy-load the workforce section using Intersection Observer
     const membersContainer = document.getElementById("team-container");
     if (membersContainer) {
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            fetchTeamData();
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        root: null,
-        threshold: 0.1
-      });
+      const observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              fetchTeamData();
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.1,
+        }
+      );
       observer.observe(membersContainer);
     }
   });

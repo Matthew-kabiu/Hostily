@@ -1,115 +1,88 @@
-(() => {
-  // Wait until the DOM is fully loaded before executing
-  window.addEventListener("DOMContentLoaded", () => {
-    const blogContentContainer = document.querySelector(".blog-content");
+// Import the pullData function from api.js
+import { pullData } from '../../JS/api.js';
 
-    // Exit if the blog content container is not found
+(() => {
+  window.addEventListener("DOMContentLoaded", async () => {
+    const blogContentContainer = document.querySelector(".blog-content");
     if (!blogContentContainer) {
       console.warn("[ERROR DEBUGGING] blog-content container not found.");
       return;
     }
 
-    // Example array of 6 blog posts
-    const blogPosts = [
-      {
-        author: "By Admin #1",
-        date: "07, March, 2022",
-        comments: "3 Comments",
-        title: "Get best taxi fares in your city with our booking service",
-        description: `Praesent non ullamcorper ligula. Proin a mi vitae massa lacinia sollicitudin eget eu ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur rhoncus lobortis. Curabitur sit amet velit sagittis, pellentesque diam euismod, faucibus quam. Cras non rhoncus ipsum. Quisque mattis arcu metus,`,
-        btnText: "Read More",
-      },
-      {
-        author: "By John Doe #2",
-        date: "15, April, 2022",
-        comments: "10 Comments",
-        title: "Why booking early can save you money on hotel rooms",
-        description: `Praesent non ullamcorper ligula. Proin a mi vitae massa lacinia sollicitudin eget eu ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur rhoncus lobortis. Curabitur sit amet velit sagittis, pellentesque diam euismod, faucibus quam. Cras non rhoncus ipsum. Quisque mattis arcu metus`,
-        btnText: "Discover More",
-      },
-      {
-        author: "By Jane Smith #3",
-        date: "20, May, 2022",
-        comments: "5 Comments",
-        title: "Top 10 tips for finding the perfect hotel",
-        description: `Praesent non ullamcorper ligula. Proin a mi vitae massa lacinia sollicitudin eget eu ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur rhoncus lobortis. Curabitur sit amet velit sagittis, pellentesque diam euismod, faucibus quam. Cras non rhoncus ipsum. Quisque mattis arcu metus`,
-        btnText: "Check it Out",
-      },
-      {
-        author: "By Admin #4",
-        date: "10, June, 2022",
-        comments: "0 Comments",
-        title: "Explore the world with Hostily bookings",
-        description: `Praesent non ullamcorper ligula. Proin a mi vitae massa lacinia sollicitudin eget eu ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur rhoncus lobortis. Curabitur sit amet velit sagittis, pellentesque diam euismod, faucibus quam. Cras non rhoncus ipsum. Quisque mattis arcu metus`,
-        btnText: "Read More",
-      },
-      {
-        author: "By John Doe #5",
-        date: "12, July, 2022",
-        comments: "2 Comments",
-        title: "Booking hacks: Save more on your next stay",
-        description: `Praesent non ullamcorper ligula. Proin a mi vitae massa lacinia sollicitudin eget eu ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur rhoncus lobortis. Curabitur sit amet velit sagittis, pellentesque diam euismod, faucibus quam. Cras non rhoncus ipsum. Quisque mattis arcu metus`,
-        btnText: "Discover More",
-      },
-      {
-        author: "By Sarah Green #6",
-        date: "01, August, 2022",
-        comments: "8 Comments",
-        title: "Exclusive deals for early bookings",
-        description: `Praesent non ullamcorper ligula. Proin a mi vitae massa lacinia sollicitudin eget eu ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur rhoncus lobortis. Curabitur sit amet velit sagittis, pellentesque diam euismod, faucibus quam. Cras non rhoncus ipsum. Quisque mattis arcu metus`,
-        btnText: "Book Now",
-      },
-    ];
+    const pageSize = 2; // Number of posts per page
+    let currentPage = 1; // Current page number
+    let blogPosts = []; // Array to store fetched blog posts
 
-    const pageSize = 2;
-    const totalPages = Math.ceil(blogPosts.length / pageSize);
-    let currentPage = 1;
+    // Fetch news from the backend API using the pullData function
+    const fetchNews = async () => {
+      try {
+        const data = await pullData("/api/hotel-news"); // Use pullData from api.js
+        
+        if (data.success) {
+          blogPosts = data.data.map(post => ({
+            source: post.source.name || "Unknown Source",
+            author: post.author || "Unknown Author",
+            title: post.title,
+            description: post.description,
+            url: post.url,
+            urlToImage: post.urlToImage || "default-image.jpg",
+            publishedAt: new Date(post.publishedAt).toLocaleDateString(),
+            content: post.content || "No content available"
+          }));
+        }
+      } catch (error) {
+        console.error("[ERROR DEBUGGING] Failed to fetch hotel news:", error);
+      }
+    };
 
-    // Function to create a blog card's HTML structure
+    // Function to create a blog card
     const createBlogCard = (post) => `
-            <div class="blog-card">
-                <div class="blog-card-img"></div>
-                <div class="blog-card-icons">
-                    <div class="blog-card-icon"><i class="fa-regular fa-user"></i><p class="blog-icon-p">${post.author}</p></div>
-                    <div class="blog-card-icon"><i class="fa-regular fa-calendar-days"></i><p class="blog-icon-p">${post.date}</p></div>
-                    <div class="blog-card-icon"><i class="fa-regular fa-comments"></i><p class="blog-icon-p">${post.comments}</p></div>
-                </div>
-                <hr class="blog-card-hr">
-                <div class="blog-card-content">
-                    <h2 class="blog-card-title">${post.title}</h2>
-                    <p class="blog-card-p">${post.description}</p>
-                    <button class="blog-card-btn">${post.btnText} <i class="fa-solid fa-arrow-right-long"></i></button>
-                </div>
-            </div>
-        `;
+      <div class="blog-card">
+        <div class="blog-card-img" style="background-image: url('${post.urlToImage}');"></div>
+        <div class="blog-card-icons">
+          <div class="blog-card-icon"><i class="fa-regular fa-user"></i><p class="blog-icon-p">${post.author}</p></div>
+          <div class="blog-card-icon"><i class="fa-regular fa-calendar-days"></i><p class="blog-icon-p">${post.publishedAt}</p></div>
+          <div class="blog-card-icon"><i class="fa-regular fa-newspaper"></i><p class="blog-icon-p">${post.source}</p></div>
+        </div>
+        <hr class="blog-card-hr">
+        <div class="blog-card-content">
+          <h2 class="blog-card-title">${post.title}</h2>
+          <p class="blog-card-p">${post.description}</p>
+          <a href="${post.url}" target="_blank" class="blog-card-btn">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+      </div>
+    `;
 
-    // Function to render blog posts
+    // Function to render blog posts with pagination
     const renderPosts = () => {
-      blogContentContainer.innerHTML = "";
-
+      blogContentContainer.innerHTML = ""; // Clear existing content
       const startIndex = (currentPage - 1) * pageSize;
       const endIndex = startIndex + pageSize;
       const currentPosts = blogPosts.slice(startIndex, endIndex);
 
+      // Render blog cards for the current page
       currentPosts.forEach((post) => {
         blogContentContainer.innerHTML += createBlogCard(post);
       });
 
-      // Create pagination buttons
+      // Render pagination buttons
       const blogCardActionsContainer = document.createElement("div");
       blogCardActionsContainer.classList.add("blog-card-actions");
 
+      const totalPages = Math.ceil(blogPosts.length / pageSize);
       for (let i = 1; i <= totalPages; i++) {
         const pageBtn = document.createElement("button");
         pageBtn.classList.add("blog-page-no");
         pageBtn.setAttribute("data-page", i);
         pageBtn.textContent = i < 10 ? "0" + i : i.toString();
 
+        // Highlight the current page button
         if (i === currentPage) {
           pageBtn.style.background = "var(--black)";
           pageBtn.style.color = "var(--white)";
         }
 
+        // Add click event to switch pages
         pageBtn.addEventListener("click", () => {
           currentPage = i;
           renderPosts();
@@ -122,17 +95,15 @@
       blogContentContainer.appendChild(blogCardActionsContainer);
     };
 
-    // Lazy Load Observer
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        if (entries[0].isIntersecting) {
-          renderPosts();
-          observer.disconnect(); // Stop observing after loading content
-        }
-      },
-      { threshold: 0.3 }
-    );
+    // Lazy load observer
+    const observer = new IntersectionObserver(async (entries, observer) => {
+      if (entries[0].isIntersecting) {
+        await fetchNews(); // Fetch blog posts
+        renderPosts(); // Render the posts
+        observer.disconnect(); // Stop observing after the first load
+      }
+    }, { threshold: 0.3 });
 
-    observer.observe(blogContentContainer);
+    observer.observe(blogContentContainer); // Start observing the container
   });
 })();
