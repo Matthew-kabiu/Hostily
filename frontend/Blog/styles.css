@@ -356,6 +356,9 @@ nav {
   width: 100%;
   background: var(--grey);
   height: 50vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .blog-card-icons {
@@ -389,6 +392,7 @@ nav {
   font-size: var(--font-size-large);
   line-height: 45px;
   font-weight: var(--font-weight-semi-medium);
+  text-transform: capitalize;
 }
 
 .blog-card-hr {

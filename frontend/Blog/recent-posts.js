@@ -1,4 +1,6 @@
-export const loadRecentPosts = () => {
+import { pullData } from "../../JS/api.js";
+
+export const loadRecentPosts = async () => {
   const recentPostContainer = document.querySelector("#recent-post");
 
   // Exit if the container is not found or already loaded
@@ -7,49 +9,43 @@ export const loadRecentPosts = () => {
   // Prevent duplicate loading
   recentPostContainer.dataset.loaded = "true";
 
-  // Simulated dynamic data (Can be replaced with an API call)
-  const recentPostsData = [
-    {
-      date: "10 February, 2025",
-      title: "Discover the Best Travel Destinations for 2025!",
-      imgUrl: "https://example.com/recent-post-image1.jpg",
-    },
-    {
-      date: "18 March, 2025",
-      title: "How to Get the Best Hotel Deals This Year!",
-      imgUrl: "https://example.com/recent-post-image2.jpg",
-    },
-    {
-      date: "05 April, 2025",
-      title: "Exclusive Travel Tips for Budget Travelers",
-      imgUrl: "https://example.com/recent-post-image3.jpg",
-    },
-  ];
+  try {
+    // Fetch news from the API using pullData
+    const data = await pullData("/api/hotel-news");
+    
+    if (!data.success || !data.data) {
+      throw new Error("Invalid API response");
+    }
 
-  // Create the container content dynamically
-  let postContent = `
-    <h1 class="filter-card-title">Recent Posts</h1>
-    <hr class="filter-card-hr" />
-  `;
+    const recentPostsData = data.data.slice(0, 3); // Take only the first 3 articles
 
-  // Loop through the first three recent posts
-  recentPostsData.slice(0, 3).forEach((post) => {
-    postContent += `
-      <div class="single-post">
-        <div class="single-post-img" style="background-image: url('${post.imgUrl}'); background-size: cover; background-position: center;"></div>
-        <div class="single-post-content">
-          <div class="single-post-calendar">
-            <i class="fa-regular fa-calendar-days"></i>
-            <p class="single-post-day">${post.date}</p>
-          </div>
-          <p class="single-post-title">${post.title}</p>
-        </div>
-      </div>
+    // Create the container content dynamically
+    let postContent = `
+      <h1 class="filter-card-title">Recent Posts</h1>
+      <hr class="filter-card-hr" />
     `;
-  });
 
-  // Inject generated content into the container
-  recentPostContainer.innerHTML = postContent;
+    // Loop through the first three recent posts
+    recentPostsData.forEach((post) => {
+      postContent += `
+        <div class="single-post">
+          <div class="single-post-img" style="background-image: url('${post.urlToImage || "default-image.jpg"}'); background-size: cover; background-position: center;"></div>
+          <div class="single-post-content">
+            <div class="single-post-calendar">
+              <i class="fa-regular fa-calendar-days"></i>
+              <p class="single-post-day">${new Date(post.publishedAt).toLocaleDateString()}</p>
+            </div>
+            <p class="single-post-title">${post.title}</p>
+          </div>
+        </div>
+      `;
+    });
+
+    // Inject generated content into the container
+    recentPostContainer.innerHTML = postContent;
+  } catch (error) {
+    console.error("[ERROR DEBUGGING] Failed to fetch recent posts:", error);
+  }
 };
 
 (() => {

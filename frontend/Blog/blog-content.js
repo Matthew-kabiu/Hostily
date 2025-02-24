@@ -1,5 +1,5 @@
 // Import the pullData function from api.js
-import { pullData } from '../../JS/api.js';
+import { pullData } from "../../JS/api.js";
 
 (() => {
   window.addEventListener("DOMContentLoaded", async () => {
@@ -17,9 +17,9 @@ import { pullData } from '../../JS/api.js';
     const fetchNews = async () => {
       try {
         const data = await pullData("/api/hotel-news"); // Use pullData from api.js
-        
+
         if (data.success) {
-          blogPosts = data.data.map(post => ({
+          blogPosts = data.data.map((post) => ({
             source: post.source.name || "Unknown Source",
             author: post.author || "Unknown Author",
             title: post.title,
@@ -27,7 +27,7 @@ import { pullData } from '../../JS/api.js';
             url: post.url,
             urlToImage: post.urlToImage || "default-image.jpg",
             publishedAt: new Date(post.publishedAt).toLocaleDateString(),
-            content: post.content || "No content available"
+            content: post.content || "No content available",
           }));
         }
       } catch (error) {
@@ -36,22 +36,29 @@ import { pullData } from '../../JS/api.js';
     };
 
     // Function to create a blog card
-    const createBlogCard = (post) => `
-      <div class="blog-card">
-        <div class="blog-card-img" style="background-image: url('${post.urlToImage}');"></div>
-        <div class="blog-card-icons">
-          <div class="blog-card-icon"><i class="fa-regular fa-user"></i><p class="blog-icon-p">${post.author}</p></div>
-          <div class="blog-card-icon"><i class="fa-regular fa-calendar-days"></i><p class="blog-icon-p">${post.publishedAt}</p></div>
-          <div class="blog-card-icon"><i class="fa-regular fa-newspaper"></i><p class="blog-icon-p">${post.source}</p></div>
+    const createBlogCard = (post) => {
+      // Limit the title to a maximum of 9 words
+      const titleWords = post.title.split(" ");
+      const limitedTitle =
+        titleWords.slice(0, 10).join(" ") + (titleWords.length > 10 ? "..." : "");
+
+      return `
+        <div class="blog-card">
+          <div class="blog-card-img" style="background-image: url('${post.urlToImage}');"></div>
+          <div class="blog-card-icons">
+            <div class="blog-card-icon"><i class="fa-regular fa-user"></i><p class="blog-icon-p">${post.author}</p></div>
+            <div class="blog-card-icon"><i class="fa-regular fa-calendar-days"></i><p class="blog-icon-p">${post.publishedAt}</p></div>
+            <div class="blog-card-icon"><i class="fa-regular fa-newspaper"></i><p class="blog-icon-p">${post.source}</p></div>
+          </div>
+          <hr class="blog-card-hr">
+          <div class="blog-card-content">
+            <h2 class="blog-card-title">${limitedTitle}</h2>
+            <p class="blog-card-p">${post.description}</p>
+            <a href="${post.url}" target="_blank" class="blog-card-btn">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+          </div>
         </div>
-        <hr class="blog-card-hr">
-        <div class="blog-card-content">
-          <h2 class="blog-card-title">${post.title}</h2>
-          <p class="blog-card-p">${post.description}</p>
-          <a href="${post.url}" target="_blank" class="blog-card-btn">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
-        </div>
-      </div>
-    `;
+      `;
+    };
 
     // Function to render blog posts with pagination
     const renderPosts = () => {
@@ -96,13 +103,16 @@ import { pullData } from '../../JS/api.js';
     };
 
     // Lazy load observer
-    const observer = new IntersectionObserver(async (entries, observer) => {
-      if (entries[0].isIntersecting) {
-        await fetchNews(); // Fetch blog posts
-        renderPosts(); // Render the posts
-        observer.disconnect(); // Stop observing after the first load
-      }
-    }, { threshold: 0.3 });
+    const observer = new IntersectionObserver(
+      async (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          await fetchNews(); // Fetch blog posts
+          renderPosts(); // Render the posts
+          observer.disconnect(); // Stop observing after the first load
+        }
+      },
+      { threshold: 0.3 }
+    );
 
     observer.observe(blogContentContainer); // Start observing the container
   });
