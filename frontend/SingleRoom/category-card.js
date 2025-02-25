@@ -33,9 +33,9 @@ export async function loadCategoryCard() {
       // Add event listeners to each category item
       document.querySelectorAll(".single-item").forEach(item => {
         item.addEventListener("click", () => {
-          const selectedCategoryRoom = item.getAttribute("data-title");
-          localStorage.setItem("selectedCategoryRoom", selectedCategoryRoom);
-          window.location.href = "/frontend/SingleRoom/singleroom.html";
+          const selectedRoomTitle = item.getAttribute("data-title"); // Unified key name
+          localStorage.setItem("selectedRoomTitle", selectedRoomTitle); // Store title
+          window.location.href = "/frontend/SingleRoom/singleroom.html"; // Redirect to details page
         });
       });
     } else {

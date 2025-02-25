@@ -1,18 +1,16 @@
-// ✅ Move import to the top for better readability and module handling
-import { pullData } from "../../JS/api.js"; // Ensure the correct path is used
+import { pullData } from "../../JS/api.js";
 
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
-    let roomsData = []; // Stores fetched room data
-    const maxCardsPerRow = 3; // Defines the maximum number of room cards per row
+    let roomsData = [];
+    const maxCardsPerRow = 3;
 
-    // ✅ Fetch rooms data using API helper
     async function fetchRoomsData() {
       try {
-        const jsonData = await pullData("/api/rooms"); // ✅ Correct API function call
+        const jsonData = await pullData("/api/rooms");
         if (jsonData.success) {
-          roomsData = jsonData.data; // Store the fetched data
-          loadRooms(); // ✅ Call loadRooms() only after data is fetched
+          roomsData = jsonData.data;
+          loadRooms();
         } else {
           console.error("Failed to fetch rooms:", jsonData.message);
         }
@@ -21,29 +19,24 @@ import { pullData } from "../../JS/api.js"; // Ensure the correct path is used
       }
     }
 
-    // ✅ Function to redirect users to a detailed room page
+    // Store only the room title in localStorage
     function redirectToRoomDetails(room) {
-      localStorage.setItem("selectedRoom", JSON.stringify(room)); // Store selected room in localStorage
-      window.location.href = "/frontend/SingleRoom/singleroom.html"; // Redirect to the room details page
+      localStorage.setItem("selectedRoomTitle", room.title);
+      window.location.href = "/frontend/SingleRoom/singleroom.html";
     }
 
-    // ✅ Function to build HTML structure for displaying rooms
     function buildRoomsHTML() {
-      if (roomsData.length === 0) return ""; // ✅ Prevent rendering empty content if no data exists
+      if (roomsData.length === 0) return "";
 
-      const rows = []; // Array to store room groups
-
-      // ✅ Split rooms into rows with a max of `maxCardsPerRow` per row
+      const rows = [];
       for (let i = 0; i < roomsData.length; i += maxCardsPerRow) {
         rows.push(roomsData.slice(i, i + maxCardsPerRow));
       }
 
-      // ✅ Generate HTML for each row of rooms
       return rows
         .map(row => {
           let rowHTML = `<div class="rooms-row">`;
           row.forEach(room => {
-            const image = room.image || ""; // ✅ Use placeholder if no image exists
             const price = `$${room.price} /Night`;
 
             rowHTML += `
@@ -73,43 +66,41 @@ import { pullData } from "../../JS/api.js"; // Ensure the correct path is used
           rowHTML += `</div>`;
           return rowHTML;
         })
-        .join(""); // ✅ Ensure the final HTML string is correctly formatted
+        .join("");
     }
 
-    // ✅ Function to insert room cards into the DOM
     function loadRooms() {
       const roomsContainer = document.getElementById("rooms");
-      if (roomsContainer) {
-        roomsContainer.innerHTML = buildRoomsHTML(); // ✅ Insert the generated HTML into the container
+      if (!roomsContainer) return;
 
-        const roomCards = roomsContainer.querySelectorAll(".room-card");
-        roomCards.forEach(card => {
-          // ✅ Ensure `data-room` attribute exists before parsing
-          if (!card.hasAttribute("data-room")) return;
+      roomsContainer.innerHTML = buildRoomsHTML();
 
-          try {
-            const roomData = JSON.parse(card.getAttribute("data-room").replace(/&apos;/g, "'"));
-            card.addEventListener("click", () => redirectToRoomDetails(roomData)); // ✅ Attach click event to redirect users
-          } catch (error) {
-            console.error("Error parsing room data:", error);
-          }
-        });
-      }
+      const roomCards = roomsContainer.querySelectorAll(".room-card");
+      roomCards.forEach(card => {
+        if (!card.hasAttribute("data-room")) return;
+
+        try {
+          const roomData = JSON.parse(card.getAttribute("data-room").replace(/&apos;/g, "'"));
+          card.addEventListener("click", () => redirectToRoomDetails(roomData));
+        } catch (error) {
+          console.error("Error parsing room data:", error);
+        }
+      });
     }
 
-    // ✅ Lazy Load Data with Intersection Observer
+    // Lazy Load Data with Intersection Observer
     const roomsContainer = document.getElementById("rooms");
     if (roomsContainer) {
       const observer = new IntersectionObserver(async (entries, observer) => {
         for (let entry of entries) {
           if (entry.isIntersecting) {
-            await fetchRoomsData(); // ✅ Ensure fetch completes before rendering
-            observer.unobserve(entry.target); // ✅ Stop observing after the data is loaded
+            await fetchRoomsData();
+            observer.unobserve(entry.target);
           }
         }
       }, {
         root: null,
-        threshold: 0.1 // ✅ Trigger loading when 10% of the container is visible
+        threshold: 0.1
       });
 
       observer.observe(roomsContainer);

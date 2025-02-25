@@ -5,7 +5,7 @@
 :root {
   --black: #000000;
   --white: #ffffff;
-  --grey: #D9D9D9;
+  --grey: #d9d9d9;
   --light-grey: #555555;
   --dark-grey: #1e1e1e;
 
@@ -72,6 +72,7 @@ select {
 
 section {
   padding: 75px 50px;
+  flex-wrap: wrap;
 }
 
 /* Header Section */
@@ -97,6 +98,7 @@ nav {
   cursor: pointer;
   padding-bottom: 20px;
   border-bottom: 1px solid white;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -327,114 +329,171 @@ nav {
 /* End of Components Section */
 
 /* Members CTA Section */
-#members-cta{
-    display: flex;
-    justify-content: space-between;
+#members-cta {
+  display: flex;
+  justify-content: space-between;
 }
 
-.members-cta-column{
-    font-family: var(--font-family-bai);
-    width: 48%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+.members-cta-column {
+  font-family: var(--font-family-bai);
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.members-cta-tagline{
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-semi-mediummedium);
+.members-cta-tagline {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-semi-mediummedium);
 }
 
-.members-cta-p{
-    font-family: var(--font-family-lato);
+.members-cta-p {
+  font-family: var(--font-family-lato);
 }
 
-.members-logo{
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    padding: 30px 20px;
-    width: 30%;
+.members-logo {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 30px 20px;
+  width: 30%;
 }
 
-.logo-title{
-    font-size: var(--font-size-semi-medium);
+.logo-title {
+  font-size: var(--font-size-semi-medium);
 }
 
-.column-img{
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    gap: 20px;
+.column-img {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  gap: 20px;
 }
 
-.ceo-image{
-    width: 100%;
-    height: 70vh;
-    background: grey;
+.ceo-image {
+  width: 100%;
+  height: 70vh;
+  background: grey;
 }
 
-.ceo-title{
-    font-family:var(--font-family-lato);
-    text-align: center;
-    font-size: small;
+.ceo-title {
+  font-family: var(--font-family-lato);
+  text-align: center;
+  font-size: small;
 }
 
 /* Members Section */
-#members{
-    font-family: var(--font-family-bai);
-    display: flex;
+#members {
+  font-family: var(--font-family-bai);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.cta-title {
+  font-size: var(--font-size-medium);
+}
+
+.members-carousel-container,
+#members {
+  width: 100%;
+}
+
+.members-carousel-row {
+  width: 100%;
+  display: flex;
+  gap: 30px;
+}
+
+.member-card {
+  background: var(--black);
+  position: relative;
+  width: 30%;
+  height: 70vh;
+}
+
+.member-card-content {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--grey);
+  width: 90%;
+  margin: auto;
+  padding: 15px 0px;
+  font-family: var(--font-family-bai);
+}
+
+.member-name {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-semi-medium);
+}
+
+.member-title {
+  font-weight: var(--font-weight-semi-medium);
+}
+
+/* Media Screen and Mobile Responsiveness */
+@media screen and (max-width: 600px) {
+  /* Components Section */
+  section, .footer-row {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    width: 100%;
   }
 
-  .cta-title{
-    font-size: var(--font-size-medium);
+  p {
+    font-size: var(--font-size-small);
   }
-  
-  .members-carousel-container, #members{
-    width: 100%;
+
+  nav {
+    display: none;
   }
-  
-  .members-carousel-row{
-    width: 100%;
-    display: flex;
+
+  .footer-row{
     gap: 30px;
   }
-  
-  .member-card{
-    background: var(--black);
-    position: relative;
-    width: 30%;
-    height: 70vh;
-  }
-  
-  .member-card-content{
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
+
+  .footer-column{
+    width: 100%;
+    gap:20px;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--grey);
-    width: 90%;
-    margin: auto;
-    padding: 15px 0px;
-    font-family: var(--font-family-bai);
-  }
-  
-  .member-name{
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-semi-medium);
-  }
-  
-  .member-title{
-    font-weight: var(--font-weight-semi-medium);
   }
 
+  .footer-card i{
+    font-size: var(--font-size-normal);
+  }
+
+  /* End Of Components Section */
+
+  .header-wrapper {
+    gap: 20px;
+  }
+
+  .header-text {
+    text-align: center;
+  }
+
+  /* Members cta */
+  #members-cta {
+    gap: 30px;
+  }
+
+  .members-cta-column,
+  .column-img,
+  .members-logo{
+    width: 100%;
+  }
+
+  .email-input{
+    width: 100%;
+  }
+
+}

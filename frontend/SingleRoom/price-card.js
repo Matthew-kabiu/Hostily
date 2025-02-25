@@ -1,55 +1,73 @@
-// Export the loadBookingCard function so that it can be imported elsewhere.
-export function loadPriceCard() {
+import { pullData } from "../../JS/api.js"; // Ensure API.js is correctly imported
+
+// ✅ Load the price card dynamically with room data
+export async function loadPriceCard() {
   const priceCard = document.getElementById("price-card");
   if (!priceCard) return;
 
-    // Retrieve selected room data from localStorage
-    const selectedRoom = JSON.parse(localStorage.getItem("selectedRoom"));
+  // Read the selected room title from localStorage
+  const selectedRoomTitle = localStorage.getItem("selectedRoomTitle");
+  if (!selectedRoomTitle) {
+    console.error("No 'selectedRoomTitle' found in localStorage.");
+    return;
+  }
 
-    if (!selectedRoom) {
-      console.error("No room data found in localStorage.");
+  try {
+    // Fetch the room details from the backend
+    const response = await pullData(`/api/rooms/single?title=${encodeURIComponent(selectedRoomTitle)}`);
+    if (!response.success) {
+      console.error("Failed to fetch the single room:", response.message);
       return;
     }
 
-  priceCard.innerHTML = `
-    <p class="price-card-title">Your Price</p>
-    <hr class="price-card-hr" />
-    <div class="price-cards-beds">
-      <i class="fa-solid fa-bed"></i>
-      <p class="left-card-description">(${selectedRoom.beds}) beds</p>
-    </div>
-    <div class="price-cards-guests">
-      <i class="fa-solid fa-user-group"></i>
-      <p class="left-card-description">(${selectedRoom.guests}) guests</p>
-    </div>
-    <p class="price-card-price">
-      $${selectedRoom.price}  <span class="price-card-span">/Night</span>
-    </p>
-    <button class="price-card-btn">
-      BOOK NOW<i class="fa-solid fa-arrow-right"></i>
-    </button>
-  `;
+    const roomData = response.data;
+    if (!roomData) {
+      console.error("No room data returned from the server.");
+      return;
+    }
+
+    // ✅ Populate the price-card with dynamic data
+    priceCard.innerHTML = `
+      <p class="price-card-title">Your Price</p>
+      <hr class="price-card-hr" />
+      <div class="price-cards-beds">
+        <i class="fa-solid fa-bed"></i>
+        <p class="left-card-description">(${roomData.beds}) beds</p>
+      </div>
+      <div class="price-cards-guests">
+        <i class="fa-solid fa-user-group"></i>
+        <p class="left-card-description">(${roomData.guests}) guests</p>
+      </div>
+      <p class="price-card-price">
+        $${roomData.price} <span class="price-card-span">/Night</span>
+      </p>
+      <button class="price-card-btn">
+        BOOK NOW<i class="fa-solid fa-arrow-right"></i>
+      </button>
+    `;
+  } catch (error) {
+    console.error("Error fetching single room:", error);
+  }
 }
 
-// IIFE to implement lazy-loading functionality
+// ✅ Lazy load price-card content
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
-    const priceCard = document.getElementById("price-card");
-    if (!priceCard) return;
+    const priceCardPlaceholder = document.getElementById("price-card");
+    if (!priceCardPlaceholder) return;
 
-    // Set up the Intersection Observer to lazy-load the content when at least 10% is visible.
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver(async (entries, observer) => {
+      for (let entry of entries) {
         if (entry.isIntersecting) {
-          loadPriceCard();
-          observer.unobserve(entry.target); // Stop observing once content is loaded.
+          await loadPriceCard();
+          observer.unobserve(entry.target);
         }
-      });
+      }
     }, {
       root: null,
       threshold: 0.1
     });
 
-    observer.observe(priceCard);
+    observer.observe(priceCardPlaceholder);
   });
 })();

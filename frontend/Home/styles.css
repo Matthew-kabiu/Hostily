@@ -91,6 +91,7 @@ section {
   padding: 0px 50px;
 }
 
+/* Start of nav */
 nav {
   width: 100%;
   display: flex;
@@ -125,6 +126,7 @@ nav {
 }
 
 .nav-items {
+  list-style: none;
   display: flex;
   gap: 30px;
 }
@@ -142,7 +144,22 @@ nav {
   transform: scale(1.2);
   opacity: 1;
 }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 30px;
+  height: 3px;
+  background-color: black;
+  margin: 5px 0;
+  transition: 0.4s;
+}
 /* End of Nav */
+
 .home-content {
   display: flex;
   flex-direction: column;
@@ -474,8 +491,21 @@ nav {
   background: var(--grey);
 }
 
-/* Luxury Rooms Section */
+/* Initially hide the accommodation section */
+.accomodation-hidden {
+  opacity: 0;
+  transform: translateY(100px); /* More visible movement */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
 
+/* When visible, smoothly bring it in */
+.accomodation-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s; 
+}
+
+/* Luxury Rooms Section */
 #luxuryRooms {
   background: var(--custom1);
   display: flex;
@@ -839,12 +869,16 @@ nav {
   width: 30%;
   position: relative;
   margin-bottom: 100px;
+  cursor: pointer;
 }
 
 .home-blog-card-img {
   width: 100%;
   height: 30vh;
   background: var(--black);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .home-blog-card-text-container {
@@ -884,3 +918,5 @@ nav {
   line-height: 35px;
   width: 80%;
 }
+
+

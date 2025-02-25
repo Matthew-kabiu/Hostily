@@ -19,11 +19,13 @@
   // Importing routes.
   const roomRoutes = require('./routes/roomRoutes');
   const teamRoutes = require('./routes/teamRoutes');
+  const singleRoomRoute = require("./routes/singleRoomRoute");
 
   // Assigning Api Routes
   app.use('/api/rooms', roomRoutes);
   app.use('/api/team', teamRoutes);
   app.use('/api', newsRoutes);
+  app.use("/api/rooms", singleRoomRoute);
 
   // Base route
   app.get('/', (req, res) => {

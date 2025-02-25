@@ -1,4 +1,4 @@
-import { pullData } from "../../JS/api.js"; // Ensure API.js is correctly imported
+import { pullData } from "../../JS/api.js";
 
 // Function to load category card dynamically from the API
 export async function loadCategoryCard() {
@@ -6,11 +6,10 @@ export async function loadCategoryCard() {
   if (!categoryCardElement) return;
 
   try {
-    const jsonData = await pullData("/api/rooms"); // Fetch rooms from API
-
+    const jsonData = await pullData("/api/rooms");
     if (jsonData.success && jsonData.data.length > 0) {
       const rooms = jsonData.data;
-      const uniqueCategories = [...new Set(rooms.map(room => room.title))]; // Extract unique room titles
+      const uniqueCategories = [...new Set(rooms.map(room => room.title))];
 
       // Generate dynamic category HTML
       const categoryHTML = uniqueCategories.map(title => `
@@ -19,22 +18,21 @@ export async function loadCategoryCard() {
             <p class="left-card-description">>></p>
             <p class="category-room left-card-description">${title}</p>
           </div>
-          <p class="category-id left-card-description">(01)</p> <!-- Placeholder for count -->
+          <p class="category-id left-card-description">(01)</p>
         </div>
       `).join('');
 
-      // Update the DOM with generated content
       categoryCardElement.innerHTML = `
         <h1 class="filter-card-title">Category</h1>
         <hr class="filter-card-hr" />
         ${categoryHTML}
       `;
 
-      // Add event listeners to each category item
+      // On click, store the same localStorage key as in Rooms.js
       document.querySelectorAll(".single-item").forEach(item => {
         item.addEventListener("click", () => {
-          const selectedCategoryRoom = item.getAttribute("data-title");
-          localStorage.setItem("selectedCategoryRoom", selectedCategoryRoom);
+          const categoryTitle = item.getAttribute("data-title");
+          localStorage.setItem("selectedRoomTitle", categoryTitle);
           window.location.href = "/frontend/SingleRoom/singleroom.html";
         });
       });
@@ -46,7 +44,7 @@ export async function loadCategoryCard() {
   }
 }
 
-// IIFE to implement lazy loading for the category card content.
+// IIFE for lazy loading for the category card content
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
     const categoryCardElement = document.getElementById("category-card");
@@ -56,12 +54,12 @@ export async function loadCategoryCard() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           loadCategoryCard();
-          observer.unobserve(entry.target); // Stop observing once loaded
+          observer.unobserve(entry.target);
         }
       });
     }, {
       root: null,
-      threshold: 0.1 // Trigger when at least 10% is visible
+      threshold: 0.1
     });
 
     observer.observe(categoryCardElement);

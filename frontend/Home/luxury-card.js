@@ -1,54 +1,71 @@
-export const loadLuxuryRooms = (entries, observer) => {
-  const luxuryRoomsContainer = document.querySelector(
-    ".luxury-rooms-container"
-  );
+import { pullData } from "/JS/api.js"; // Import API request function
 
-  // Simulated dynamic data (Can be replaced with an API call)
-  const luxuryRoomsData = [
-    { id: "card-top-left", price: "$134", roomType: "Small Suite" },
-    { id: "card-top-middle", price: "$180", roomType: "Deluxe Suite" },
-    { id: "card-top-right", price: "$250", roomType: "Presidential Suite" },
-    { id: "card-bottom-left", price: "$200", roomType: "Luxury Suite" },
-    { id: "card-bottom-right", price: "$220", roomType: "Family Room" },
-  ];
+/**
+ * Dynamically loads luxury rooms once they appear in the viewport.
+ */
+export const loadLuxuryRooms = async (entries, observer) => {
+  const luxuryRoomsContainer = document.querySelector(".luxury-rooms-container");
 
-  entries.forEach((entry) => {
+  entries.forEach(async (entry) => {
     if (entry.isIntersecting) {
-      // Build the luxury rooms HTML dynamically
-      let luxuryRoomsHTML = "";
-      for (let i = 0; i < luxuryRoomsData.length; i += 3) {
-        luxuryRoomsHTML += '<div class="luxury-rooms-row">';
-        for (let j = i; j < i + 3 && j < luxuryRoomsData.length; j++) {
-          const room = luxuryRoomsData[j];
+      try {
+        // ✅ Fetch room data from the API
+        const response = await pullData("/api/rooms"); 
+
+        if (!response.success) {
+          console.error("Failed to fetch luxury rooms:", response.message);
+          return;
+        }
+
+        // ✅ Extract only 5 rooms (3 for top row, 2 for bottom row)
+        const luxuryRoomsData = response.data.slice(0, 5);
+
+        // ✅ Maintain unique IDs for the first 5 rooms
+        const roomIdMapping = [
+          "card-top-left",
+          "card-top-middle",
+          "card-top-right",
+          "card-bottom-left",
+          "card-bottom-right"
+        ];
+
+        // ✅ Construct HTML dynamically
+        let luxuryRoomsHTML = '<div class="luxury-rooms-row">';
+        
+        luxuryRoomsData.forEach((room, index) => {
+          if (index === 3) luxuryRoomsHTML += '</div><div class="luxury-rooms-row" id="bottom-row">';
+          
           luxuryRoomsHTML += `
-            <div class="luxury-rooms-card" id="${room.id}">
+            <div class="luxury-rooms-card" id="${roomIdMapping[index]}">
               <div class="luxury-rooms-card-text">
                 <h6 class="luxury-card-price">
-                  <span class="luxury-price">${room.price}</span> / Night
+                  <span class="luxury-price">$${room.price}</span> / Night
                 </h6>
-                <p class="luxury-room">${room.roomType}</p>
+                <p class="luxury-room">${room.title}</p>
               </div>
             </div>
           `;
-        }
-        luxuryRoomsHTML += "</div>";
+        });
+
+        luxuryRoomsHTML += "</div>"; // Close last row
+
+        // ✅ Inject HTML into container
+        luxuryRoomsContainer.innerHTML = luxuryRoomsHTML;
+
+        // ✅ Stop observing once loaded
+        observer.disconnect();
+
+      } catch (error) {
+        console.error("Error loading luxury rooms:", error);
       }
-
-      // Inject HTML into container
-      luxuryRoomsContainer.innerHTML = luxuryRoomsHTML;
-
-      // Stop observing once content is loaded
-      observer.disconnect();
     }
   });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const luxuryRoomsContainer = document.querySelector(
-    ".luxury-rooms-container"
-  );
+  const luxuryRoomsContainer = document.querySelector(".luxury-rooms-container");
 
-  // Set up IntersectionObserver
+  // ✅ Set up IntersectionObserver for lazy loading
   if (luxuryRoomsContainer) {
     const observer = new IntersectionObserver(loadLuxuryRooms, {
       root: null, // Observe relative to the viewport

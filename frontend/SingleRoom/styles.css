@@ -500,6 +500,7 @@ nav {
   flex-direction: column;
   gap: 30px;
   padding: 0px 0px 0px 40px;
+  width: 75%;
 }
 
 #room-single-title, #top-section-title{
